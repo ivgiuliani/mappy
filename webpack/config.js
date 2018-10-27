@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const baseConfig = require('./webpack.base.config');
+const baseConfig = require('./base.config');
 const path = require('path');
 
 console.log(
@@ -15,7 +15,6 @@ module.exports = merge(baseConfig, {
     hot: true,
     inline: true,
     disableHostCheck: true,
-    contentBase: path.join(__dirname, "../dist"),
     stats: {
       hash: true,
       assets: true,

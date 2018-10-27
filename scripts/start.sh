@@ -7,7 +7,7 @@ set -e
 NODE_ENV=${NODE_ENV:=development}
 GIT_REVISION=${GIT_REVISION:=$(git rev-parse HEAD)}
 MAPPY_API_HOST="http://localhost:8080"
-WEBPACK_CONFIG_PATH="fe/config/webpack.config.js"
+WEBPACK_CONFIG_PATH="webpack/config.js"
 
 env \
   NODE_ENV=${NODE_ENV} \

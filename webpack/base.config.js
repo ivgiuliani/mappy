@@ -7,12 +7,6 @@ const root = path.join(__dirname, "..")
 module.exports = {
   target: "web",
   mode: "production",
-  entry: path.join(root, "src"),
-  output: {
-    path: path.join(root, "bundles"),
-    publicPath: '/bundles/',
-    filename: 'bundle.js',
-  },
   stats: {
     hash: true,
     assets: true,
