@@ -39,28 +39,31 @@ class Album(object):
             if media.valid.image(os.path.join(self.path, img))
         ]
 
-        lst = []
-        for image in all_images:
-            geo = media.images.geolocation(os.path.join(self.path, image))
-            has_geolocation = geo is not None
-
-            d = {
-                "name": image,
-                "has_geolocation": has_geolocation,
-            }
-            if has_geolocation:
-                d["lat"] = geo["latitude"],
-                d["lng"] = geo["longitude"],
-
-            lst.append(d)
-
-        return lst
+        return [self.image(iid) for iid in all_images]
 
     def videos(self):
         return [
             img for img in os.listdir(self.path)
             if media.valid.video(os.path.join(self.path, img))
         ]
+
+    def image(self, iid):
+        path = os.path.join(self.path, iid)
+        if not os.path.exists(path) or not os.path.isfile(path):
+            return None
+
+        geo = media.images.geolocation(path)
+        has_geolocation = geo is not None
+
+        data = {
+            "name": iid,
+            "has_geolocation": has_geolocation,
+        }
+        if has_geolocation:
+            data["lat"] = geo["latitude"],
+            data["lng"] = geo["longitude"],
+
+        return data
 
     name = property(get_name)
 

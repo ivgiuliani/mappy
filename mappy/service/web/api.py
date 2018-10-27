@@ -25,3 +25,15 @@ def get_album(aid):
         "images": album.images(),
         "videos": album.videos(),
     })
+
+
+@blueprint.route("/album/<aid>/image/<iid>")
+def get_image(aid, iid):
+    if not albums.Album.exists(aid):
+        abort(404)
+
+    album = albums.Album.load(aid)
+    image = album.image(iid)
+    if not image:
+        abort(404)
+    return jsonify(image)
