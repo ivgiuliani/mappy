@@ -1,11 +1,12 @@
 from flask import Flask
 
 from mappy import config
-from . import api
+from . import api, frontend
 
 
 def blueprints():
     return [
+        frontend.blueprint,
         api.blueprint,
     ]
 
