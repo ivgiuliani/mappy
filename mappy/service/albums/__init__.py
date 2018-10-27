@@ -30,10 +30,27 @@ class Album(object):
         return self._raw_metadata().get("name", self.aid)
 
     def images(self):
-        return [
+        all_images = [
             img for img in os.listdir(self.path)
             if media.valid.image(os.path.join(self.path, img))
         ]
+
+        lst = []
+        for image in all_images:
+            geo = media.images.geolocation(os.path.join(self.path, image))
+            has_geolocation = geo is not None
+
+            d = {
+                "name": image,
+                "has_geolocation": has_geolocation,
+            }
+            if has_geolocation:
+                d["lat"] = geo["latitude"],
+                d["lng"] = geo["longitude"],
+
+            lst.append(d)
+
+        return lst
 
     def videos(self):
         return [
