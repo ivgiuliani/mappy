@@ -15,4 +15,19 @@ module.exports = {
     chunkModules: true,
     children: false,
   },
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loaders: [
+          'babel-loader',
+        ],
+        exclude: /node_modules/,
+      },
+    ],
+  },
 }
