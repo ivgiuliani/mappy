@@ -15,6 +15,7 @@ module.exports = merge(baseConfig, {
     hot: true,
     inline: true,
     disableHostCheck: true,
+    contentBase: path.join(__dirname, "../dist"),
     stats: {
       hash: true,
       assets: true,
