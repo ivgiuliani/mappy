@@ -1,0 +1,10 @@
+{
+  "name": "mappy",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Ivan Giuliani <giuliani.v@gmail.com>",
+  "dependencies": {
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
+  }
+}
