@@ -2,9 +2,17 @@ import os
 import json
 
 from mappy import config
+from mappy import media
 
 
 class Album(object):
+    @staticmethod
+    def load(aid):
+        path = os.path.join(config.Images.ALBUMS_ROOT, aid)
+        if not os.path.exists(path) and not os.path.isdir(path):
+            raise RuntimeError("Invalid album ID")
+        return Album(aid)
+
     def __init__(self, aid):
         self.aid = aid
         self.path = os.path.join(config.Images.ALBUMS_ROOT, aid)
