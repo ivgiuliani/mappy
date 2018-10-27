@@ -21,6 +21,18 @@ class Album(object):
     def get_name(self):
         return self._raw_metadata().get("name", self.aid)
 
+    def images(self):
+        return [
+            img for img in os.listdir(self.path)
+            if media.valid.image(os.path.join(self.path, img))
+        ]
+
+    def videos(self):
+        return [
+            img for img in os.listdir(self.path)
+            if media.valid.video(os.path.join(self.path, img))
+        ]
+
     name = property(get_name)
 
 
