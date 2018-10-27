@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, abort, jsonify
 
 from mappy.service import albums
 
@@ -15,6 +15,9 @@ def images():
 
 @blueprint.route("/album/<aid>")
 def get_album(aid):
+    if not albums.Album.exists(aid):
+        abort(404)
+
     album = albums.Album.load(aid)
     return jsonify({
         "aid": album.aid,

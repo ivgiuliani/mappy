@@ -7,9 +7,13 @@ from mappy import media
 
 class Album(object):
     @staticmethod
-    def load(aid):
+    def exists(aid):
         path = os.path.join(config.Images.ALBUMS_ROOT, aid)
-        if not os.path.exists(path) and not os.path.isdir(path):
+        return os.path.exists(path) and os.path.isdir(path)
+
+    @staticmethod
+    def load(aid):
+        if not Album.exists(aid):
             raise RuntimeError("Invalid album ID")
         return Album(aid)
 
