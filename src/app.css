@@ -1,6 +1,20 @@
 #gallery-scroll {
   background: #353535;
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+
+#gallery-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+#gallery-scroll .image-shade {
+  background: #303030;
+}
+
+#gallery-scroll .image-shade:hover {
+  background: #202020;
 }
 
 .fill-height {

@@ -5,14 +5,16 @@ import React from "react";
 class GalleryImage extends React.Component {
   render() {
     return (
-      <div className="m-3">
+      <div className="m-3 text-center">
         <a href={this.mapsUrl()}>
-          <img
-            className="gallery-image border border-dark rounded text-center"
-            style={{ display: "inline" }}
-            width="170px"
-            src={this.thumbnailUrl()}
-          />
+          <div className="border-dark rounded p-1 image-shade">
+            <img
+              className="gallery-image border border-dark rounded text-center"
+              style={{ display: "inline" }}
+              width="170px"
+              src={this.thumbnailUrl()}
+            />
+          </div>
         </a>
       </div>
     );
