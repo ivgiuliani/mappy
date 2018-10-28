@@ -17,11 +17,11 @@ class Application extends React.Component {
   render() {
     return (
       <div
-        className="container-fluid p-0 h-100 no-gutters"
+        className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
         style={this.appStyle}
         id="application"
       >
-        <div className="row flex-fill h-100 d-flex no-gutters">
+        <div className="row h-100 d-flex no-gutters">
           <GalleryScroll />
           <MapPane />
         </div>

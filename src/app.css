@@ -2,6 +2,6 @@
   background: #353535;
 }
 
-.flex-fill {
-  flex: 1;
+.fill-height {
+  height: 100vh;
 }
