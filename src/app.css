@@ -17,6 +17,14 @@
   background: #202020;
 }
 
+#image-pane {
+  background: #353535;
+}
+
+#map-pane {
+  background: #454545;
+}
+
 .fill-height {
   height: 100vh;
 }

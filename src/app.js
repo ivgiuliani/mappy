@@ -6,11 +6,11 @@ import { hot } from "react-hot-loader";
 
 import GalleryScroll from "./components/gallery_scroll";
 import MapPane from "./components/map_pane";
-import { hidden } from "ansi-colors";
+import ImagePane from "./components/image_pane";
 
 class Application extends React.Component {
   appStyle = {
-    overflow: hidden,
+    overflow: "hidden",
     minHeight: "100%"
   };
 
@@ -23,6 +23,7 @@ class Application extends React.Component {
       >
         <div className="row h-100 d-flex no-gutters">
           <GalleryScroll album_id="washington2018" />
+          <ImagePane />
           <MapPane />
         </div>
       </div>
