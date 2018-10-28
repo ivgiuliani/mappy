@@ -77,7 +77,7 @@ class Album(object):
             return None
 
         exif = media.images.raw_exif(path, with_thumbnail=True)
-        if "thumbnail" in exif:
+        if "thumbnail" in exif and exif["thumbnail"] is not None:
             return exif["thumbnail"]
 
         # TODO: fallback to PIL rather than the full size image
