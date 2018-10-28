@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import GalleryImage from "./components/galleryImage";
 import GalleryScroll from "./components/gallery_scroll";
 
 class MapPane extends React.Component {

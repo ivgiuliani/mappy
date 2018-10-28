@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import GalleryImage from "./gallery_image";
+
 class GalleryScroll extends React.Component {
   render() {
     return (
