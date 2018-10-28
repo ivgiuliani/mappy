@@ -1,11 +1,13 @@
-const _ = require('lodash');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const baseConfig = require('./base.config');
-const path = require('path');
+const _ = require("lodash");
+const webpack = require("webpack");
+const merge = require("webpack-merge");
+const baseConfig = require("./base.config");
+const path = require("path");
 
 console.log(
-  `Mappy API host: ${process.env.MAPPY_API_HOST} ~ Git rev: ${process.env.GIT_REVISION} ~ Node env: ${process.env.NODE_ENV}`
+  `Mappy API host: ${process.env.MAPPY_API_HOST} ~ Git rev: ${
+    process.env.GIT_REVISION
+  } ~ Node: ${process.env.NODE_ENV}`
 );
 
 module.exports = merge(baseConfig, {
