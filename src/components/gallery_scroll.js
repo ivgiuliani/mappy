@@ -26,7 +26,11 @@ export default class GalleryScroll extends Component {
 
   render() {
     return (
-      <div id="gallery-scroll" className="col-2 h-100">
+      <div
+        id="gallery-scroll"
+        className="col-2 h-100"
+        style={{ overflowY: "scroll" }}
+      >
         {this.imagesList()}
       </div>
     );
