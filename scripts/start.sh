@@ -14,6 +14,7 @@ env \
   GIT_REVISION=${GIT_REVISION} \
   MAPPY_API_HOST=${MAPPY_API_HOST} \
   ./node_modules/.bin/webpack-dev-server \
+    --hot \
     --config ${WEBPACK_CONFIG_PATH} \
     --display-error-details \
     --devtool eval
