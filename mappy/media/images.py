@@ -1,4 +1,7 @@
 import piexif
+import io
+
+from PIL import Image, ExifTags
 
 
 def raw_exif(path, with_thumbnail=False):
@@ -109,3 +112,28 @@ def geolocation(path):
         "latitude": latitude,
         "longitude": longitude,
     }
+
+
+def gen_thumbnail(path, size=(250, 250)):
+    im = Image.open(path)
+
+    # Honour (EXIF) rotation metadata on thumbnails if present
+    if hasattr(im, '_getexif'):  # _getexif is only available for JPG
+        exif = im._getexif()
+        if exif is not None:
+            orientation = dict(exif.items()).get(piexif.ImageIFD.Orientation, None)
+
+            rotation = {
+                3: Image.ROTATE_180,
+                6: Image.ROTATE_270,
+                8: Image.ROTATE_90,
+                9: Image.ROTATE_90,
+            }.get(orientation, None)
+
+            if rotation:
+                im = im.transpose(rotation)
+
+    with io.BytesIO() as output:
+        im.thumbnail(size)
+        im.save(output, format="JPEG")
+        return output.getvalue()

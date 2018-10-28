@@ -80,9 +80,7 @@ class Album(object):
         if "thumbnail" in exif and exif["thumbnail"] is not None:
             return exif["thumbnail"]
 
-        # TODO: fallback to PIL rather than the full size image
-        with open(path, "rb") as f:
-            return f.read()
+        return media.images.gen_thumbnail(path)
 
     name = property(get_name)
 
