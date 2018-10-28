@@ -21,7 +21,7 @@ module.exports = merge(baseConfig, {
       colors: true,
       chunks: false,
       chunkModules: true,
-      children: false,
-    },
-  },
+      children: false
+    }
+  }
 });
