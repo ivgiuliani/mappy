@@ -1,6 +1,4 @@
-import os
-
-from flask import Blueprint, abort, send_from_directory
+from flask import Blueprint, abort, send_from_directory, make_response
 
 from mappy.service import albums
 
@@ -13,8 +11,15 @@ def serve_thumb(aid, iid):
         abort(404)
 
     album = albums.Album.load(aid)
-    # TODO: actually send a thumbnail
-    return send_from_directory(album.path, iid)
+
+    thumbnail = album.image_preview(iid)
+    if not thumbnail:
+        abort(404)
+
+    response = make_response(thumbnail)
+    response.headers.set("Content-Type", "image/jpeg")
+
+    return response
 
 
 @blueprint.route("/serve/full/album/<aid>/image/<iid>")

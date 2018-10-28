@@ -65,6 +65,19 @@ class Album(object):
 
         return data
 
+    def image_preview(self, iid):
+        path = os.path.join(self.path, iid)
+        if not os.path.exists(path) or not os.path.isfile(path):
+            return None
+
+        exif = media.images.raw_exif(path, with_thumbnail=True)
+        if "thumbnail" in exif:
+            return exif["thumbnail"]
+
+        # TODO: fallback to PIL rather than the full size image
+        with open(path, "rb") as f:
+            return f.read()
+
     name = property(get_name)
 
 
