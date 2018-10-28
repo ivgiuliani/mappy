@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 
 class GalleryImage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      album_id: null,
-      image_id: null
-    };
-  }
+  state = {
+    album_id: null,
+    image_id: null
+  };
 
   render() {
     return (
@@ -16,9 +13,9 @@ class GalleryImage extends Component {
         width="200px"
         src={
           "http://localhost:5000/serve/thumb/album/" +
-          this.props.album_id +
+          this.state.album_id +
           "/image/" +
-          this.props.image_id
+          this.state.image_id
         }
       />
     );
