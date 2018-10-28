@@ -5,8 +5,8 @@ import GalleryImage from "./gallery_image";
 
 export default class GalleryScroll extends Component {
   state = {
-    album_name: "Washington 2018",
-    album_id: "washington2018",
+    album_name: "New York 2018",
+    album_id: "newyork2018",
     images: []
   };
 

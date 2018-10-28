@@ -8,7 +8,8 @@ class GalleryImage extends React.Component {
       <div className="m-3">
         <a href={this.mapsUrl()}>
           <img
-            className="gallery-image border border-dark rounded"
+            className="gallery-image border border-dark rounded text-center"
+            style={{ display: "inline" }}
             width="170px"
             src={this.thumbnailUrl()}
           />
