@@ -6,7 +6,7 @@ set -e
 # Set all of the default parameters
 NODE_ENV=${NODE_ENV:=development}
 GIT_REVISION=${GIT_REVISION:=$(git rev-parse HEAD)}
-MAPPY_API_HOST="http://localhost:8080"
+MAPPY_API_HOST="http://localhost:5000"
 WEBPACK_CONFIG_PATH="webpack/config.js"
 
 env \
