@@ -1,5 +1,6 @@
 #gallery-scroll {
   background: #353535;
+  overflow-y: scroll;
 }
 
 .fill-height {

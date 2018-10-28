@@ -22,7 +22,7 @@ class Application extends React.Component {
         id="application"
       >
         <div className="row h-100 d-flex no-gutters">
-          <GalleryScroll />
+          <GalleryScroll album_id="washington2018" />
           <MapPane />
         </div>
       </div>

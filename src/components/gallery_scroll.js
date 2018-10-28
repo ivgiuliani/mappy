@@ -5,32 +5,28 @@ import GalleryImage from "./gallery_image";
 
 export default class GalleryScroll extends Component {
   state = {
-    album_name: "New York 2018",
-    album_id: "newyork2018",
+    album_name: "",
+    album_id: "",
     images: []
   };
 
   componentDidMount() {
-    axios
-      .get(MAPPY_API_HOST + "/api/album/" + this.state.album_id)
-      .then(response => {
-        const data = response.data;
+    const aid = this.props.album_id;
 
-        this.setState({
-          album_id: data.aid,
-          album_name: data.name,
-          images: data.images
-        });
+    axios.get(`${MAPPY_API_HOST}/api/album/${aid}`).then(response => {
+      const data = response.data;
+
+      this.setState({
+        album_id: data.aid,
+        album_name: data.name,
+        images: data.images
       });
+    });
   }
 
   render() {
     return (
-      <div
-        id="gallery-scroll"
-        className="col-2 h-100"
-        style={{ overflowY: "scroll" }}
-      >
+      <div id="gallery-scroll" className="col-2 h-100">
         {this.imagesList()}
       </div>
     );
