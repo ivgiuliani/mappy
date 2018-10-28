@@ -33,9 +33,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        loaders: ["babel-loader"],
-        exclude: /node_modules/
+        test: /\.(js|jsx)$/,
+        loader: require.resolve("babel-loader"),
+        exclude: /node_modules/,
+        options: {
+          // This is a feature of `babel-loader` for webpack (not Babel itself).
+          // It enables caching results in ./node_modules/.cache/babel-loader/
+          // directory for faster rebuilds.
+          cacheDirectory: true,
+          plugins: ["react-hot-loader/babel"]
+        }
       },
       {
         test: /\.css$/,
