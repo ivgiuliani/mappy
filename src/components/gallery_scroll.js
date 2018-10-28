@@ -1,11 +1,21 @@
 import React, { Component } from "react";
-
+import axios from "axios";
 import GalleryImage from "./gallery_image";
 
-class GalleryScroll extends Component {
+export default class GalleryScroll extends Component {
+  loadAlbum() {
+    axios
+      .get(MAPPY_API_HOST + "/api/album/washington2018")
+      .then(response => console.log(response));
+  }
+
   render() {
     return (
-      <div id="gallery-scroll">
+      <div
+        id="gallery-scroll"
+        onClick={this.loadAlbum()}
+        className="col-2 h-100"
+      >
         <GalleryImage
           album_id="washington2018"
           image_id="IMG_20181022_181528.jpg"
@@ -22,5 +32,3 @@ class GalleryScroll extends Component {
     );
   }
 }
-
-export default GalleryScroll;
