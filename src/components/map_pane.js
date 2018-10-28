@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-class MapPane extends Component {
+export default class MapPane extends React.Component {
   render() {
     return (
       <div id="map-pane">
-        <h6>map</h6>
+        <h3 className="display-3">This will be a map</h3>
       </div>
     );
   }
 }
-
-export default MapPane;

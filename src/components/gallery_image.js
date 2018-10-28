@@ -5,10 +5,10 @@ import React from "react";
 class GalleryImage extends React.Component {
   render() {
     return (
-      <div className="m-2">
+      <div className="m-3">
         <img
-          className="gallery-image"
-          width="160px"
+          className="gallery-image border border-dark rounded"
+          width="170px"
           src={this.thumbnailUrl()}
         />
       </div>
