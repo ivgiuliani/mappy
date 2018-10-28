@@ -15,4 +15,5 @@ env \
   MAPPY_API_HOST=${MAPPY_API_HOST} \
   ./node_modules/.bin/webpack-dev-server \
     --config ${WEBPACK_CONFIG_PATH} \
+    --display-error-details \
     --devtool eval
