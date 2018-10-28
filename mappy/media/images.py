@@ -61,6 +61,13 @@ def geolocation(path):
     gps = exif["GPS"]
     gps_lat = gps[piexif.GPSIFD.GPSLatitude]
     gps_lon = gps[piexif.GPSIFD.GPSLongitude]
+    gps_lat_ref = gps[piexif.GPSIFD.GPSLatitudeRef]
+    gps_lon_ref = gps[piexif.GPSIFD.GPSLongitudeRef]
+
+    is_north = gps_lat_ref in ["N", "n"]
+    is_south = gps_lat_ref in ["S", "s"]
+    is_west = gps_lon_ref in ["W", "w"]
+    is_east = gps_lon_ref in ["E", "e"]
 
     # EXIF stores GPS coords as rational64u which is a list of six unsigned
     # whole numbers in the following order:
@@ -93,6 +100,10 @@ def geolocation(path):
     longitude = (rational_lon[gps_degree] +
                  rational_lon[gps_minutes] / 60 +
                  rational_lon[gps_seconds] / 3600)
+
+    # The direction reference influences the sign
+    latitude = 1.0 * latitude if is_north else -1.0 * latitude
+    longitude = 1.0 * longitude if is_east else -1.0 * longitude
 
     return {
         "latitude": latitude,
