@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import GalleryImage from "./gallery_image";
 
-class GalleryScroll extends React.Component {
+class GalleryScroll extends Component {
   render() {
     return (
       <div id="gallery-scroll">
