@@ -39,7 +39,9 @@ class Album(object):
             if media.valid.image(os.path.join(self.path, img))
         ]
 
-        return [self.image(iid) for iid in all_images]
+        all_images = [self.image(iid) for iid in all_images]
+        all_images.sort(key=lambda img: img["date_time"])
+        return all_images
 
     def videos(self):
         return [
@@ -52,12 +54,16 @@ class Album(object):
         if not os.path.exists(path) or not os.path.isfile(path):
             return None
 
+        exif = media.images.processed_exif(path)
+        date_time = exif["Exif"].get("DateTimeOriginal", None)
+
         geo = media.images.geolocation(path)
         has_geolocation = geo is not None
 
         data = {
             "name": iid,
             "has_geolocation": has_geolocation,
+            "date_time": date_time,
         }
         if has_geolocation:
             data["lat"] = geo["latitude"]
