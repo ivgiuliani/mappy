@@ -37,6 +37,8 @@ export default class GalleryScroll extends Component {
       <GalleryImage
         album_id={this.state.album_id}
         image_id={img.name}
+        lat={img.lat}
+        lng={img.lng}
         key={img.name}
       />
     ));

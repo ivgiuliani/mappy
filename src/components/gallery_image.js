@@ -6,13 +6,22 @@ class GalleryImage extends React.Component {
   render() {
     return (
       <div className="m-3">
-        <img
-          className="gallery-image border border-dark rounded"
-          width="170px"
-          src={this.thumbnailUrl()}
-        />
+        <a href={this.mapsUrl()}>
+          <img
+            className="gallery-image border border-dark rounded"
+            width="170px"
+            src={this.thumbnailUrl()}
+          />
+        </a>
       </div>
     );
+  }
+
+  mapsUrl() {
+    const lat = this.props.lat;
+    const lng = this.props.lng;
+
+    return "http://www.google.com/maps/?q=" + lat + "," + lng;
   }
 
   thumbnailUrl() {
