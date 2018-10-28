@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 const devMode = process.env.NODE_ENV !== "production";
 const GIT_REVISION = process.env.GIT_REVISION || "development";
@@ -22,6 +23,13 @@ module.exports = {
   resolve: {
     extensions: [".jsx", ".json", ".js"]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      GIT_REVISION: JSON.stringify(GIT_REVISION.toString().trim()),
+      MAPPY_API_HOST: JSON.stringify(process.env.MAPPY_API_HOST || ""),
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+    })
+  ],
   module: {
     rules: [
       {
