@@ -60,8 +60,8 @@ class Album(object):
             "has_geolocation": has_geolocation,
         }
         if has_geolocation:
-            data["lat"] = geo["latitude"],
-            data["lng"] = geo["longitude"],
+            data["lat"] = geo["latitude"]
+            data["lng"] = geo["longitude"]
 
         return data
 
