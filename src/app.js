@@ -30,7 +30,7 @@ class Application extends React.Component {
             onImageSelected={image => this.handleImageSelection(image)}
           />
           <ImagePane album_id={this.state.album_id} image={this.state.image} />
-          <MapPane />
+          <MapPane image={this.state.image} />
         </div>
       </div>
     );
