@@ -10,7 +10,7 @@ export default class GalleryImage extends React.Component {
           href="#"
           onClick={() => this.props.onImageSelected(this.props.image)}
         >
-          <div className="border-dark rounded p-1 image-shade">
+          <div className="border-dark rounded p-1 image-shade d-inline-block">
             <img
               className="gallery-image border border-dark rounded text-center"
               style={{ display: "inline" }}
