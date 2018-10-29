@@ -3,7 +3,7 @@ import React from "react";
 class FullImage extends React.Component {
   render() {
     return (
-      <div className="border border-dark p-2 rounded image-shade">
+      <div className="border border-dark p-2 rounded image-shade inline-block">
         <img
           width="100%"
           src={this.props.imageUrl}
@@ -14,11 +14,44 @@ class FullImage extends React.Component {
   }
 }
 
+class SelectToStart extends React.Component {
+  render() {
+    return (
+      <div className="text-center p-5">
+        <p className="lead" style={{ color: "#c0c090" }}>
+          Select an image to start
+        </p>
+      </div>
+    );
+  }
+}
+
+class ImageDetails extends React.Component {
+  render() {
+    return (
+      <p className="text-muted">
+        <small>
+          lat: {this.props.image.lat} lon: {this.props.image.lng} (
+          <a href={this.mapsUrl()} target="_new">
+            map
+          </a>
+          )
+        </small>
+      </p>
+    );
+  }
+
+  mapsUrl() {
+    const { lat, lng } = this.props.image;
+    return "http://www.google.com/maps/?q=" + lat + "," + lng;
+  }
+}
+
 export default class ImagePane extends React.Component {
   render() {
     return (
-      <div id="image-pane" className="h-100 col-6">
-        {!this.props.image && "<p>No image</p>"}
+      <div id="image-pane" className="p-1 h-100 col-6">
+        {!this.props.image && <SelectToStart />}
         {this.imageComponent()}
       </div>
     );
@@ -29,9 +62,7 @@ export default class ImagePane extends React.Component {
       return (
         <React.Fragment>
           <FullImage imageUrl={this.imageUrl()} />
-          <p className="text-muted">
-            <a href={this.mapsUrl()}>Map</a>
-          </p>
+          <ImageDetails image={this.props.image} />
         </React.Fragment>
       );
     }
@@ -43,10 +74,5 @@ export default class ImagePane extends React.Component {
     return `${MAPPY_API_HOST}/serve/full/album/${this.props.album_id}/image/${
       this.props.image.name
     }`;
-  }
-
-  mapsUrl() {
-    const { lat, lng } = this.props.image;
-    return "http://www.google.com/maps/?q=" + lat + "," + lng;
   }
 }
