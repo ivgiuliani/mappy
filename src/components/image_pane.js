@@ -29,15 +29,19 @@ class SelectToStart extends React.Component {
 class ImageDetails extends React.Component {
   render() {
     return (
-      <p className="text-muted">
-        <small>
-          lat: {this.props.image.lat} lon: {this.props.image.lng} (
-          <a href={this.mapsUrl()} target="_new">
-            map
-          </a>
-          )
-        </small>
-      </p>
+      <React.Fragment>
+        <p className="text-muted">
+          <small>{this.props.image.date_time}</small>
+          <br />
+          <small>
+            lat: {this.props.image.lat} lon: {this.props.image.lng} (
+            <a href={this.mapsUrl()} target="_new">
+              map
+            </a>
+            )
+          </small>
+        </p>
+      </React.Fragment>
     );
   }
 
