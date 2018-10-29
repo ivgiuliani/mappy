@@ -2,11 +2,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import React from "react";
 
-class GalleryImage extends React.Component {
+export default class GalleryImage extends React.Component {
   render() {
     return (
       <div className="m-3 text-center">
-        <a href={this.mapsUrl()}>
+        <a
+          href="#"
+          onClick={() => this.props.onImageSelected(this.props.image)}
+        >
           <div className="border-dark rounded p-1 image-shade">
             <img
               className="gallery-image border border-dark rounded text-center"
@@ -21,21 +24,13 @@ class GalleryImage extends React.Component {
   }
 
   mapsUrl() {
-    const lat = this.props.lat;
-    const lng = this.props.lng;
-
+    const { lat, lng } = this.props.image;
     return "http://www.google.com/maps/?q=" + lat + "," + lng;
   }
 
   thumbnailUrl() {
-    return (
-      MAPPY_API_HOST +
-      "/serve/thumb/album/" +
-      this.props.album_id +
-      "/image/" +
-      this.props.image_id
-    );
+    return `${MAPPY_API_HOST}/serve/thumb/album/${this.props.album_id}/image/${
+      this.props.image.name
+    }`;
   }
 }
-
-export default GalleryImage;
