@@ -11,7 +11,7 @@ import ImagePane from "./components/image_pane";
 class Application extends React.Component {
   state = {
     image: null,
-    album_id: "washington2018"
+    album_id: "newyork2018"
   };
 
   handleImageSelection = image => {

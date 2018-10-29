@@ -33,3 +33,8 @@
 .fill-height {
   height: 100vh;
 }
+
+.img-container {
+  min-height: 600px;
+  height: 600px !important;
+}
