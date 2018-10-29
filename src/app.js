@@ -9,21 +9,28 @@ import MapPane from "./components/map_pane";
 import ImagePane from "./components/image_pane";
 
 class Application extends React.Component {
-  appStyle = {
-    overflow: "hidden",
-    minHeight: "100%"
+  state = {
+    image: null,
+    album_id: "washington2018"
+  };
+
+  handleImageSelection = image => {
+    this.setState({ image });
+    console.log(this.state);
   };
 
   render() {
     return (
       <div
         className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
-        style={this.appStyle}
         id="application"
       >
         <div className="row h-100 d-flex no-gutters">
-          <GalleryScroll album_id="washington2018" />
-          <ImagePane />
+          <GalleryScroll
+            album_id={this.state.album_id}
+            onImageSelected={image => this.handleImageSelection(image)}
+          />
+          <ImagePane album_id={this.state.album_id} image={this.state.image} />
           <MapPane />
         </div>
       </div>

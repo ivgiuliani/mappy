@@ -32,17 +32,13 @@ export default class GalleryScroll extends Component {
     );
   }
 
-  handleImageSelection = image => {
-    console.log(image);
-  };
-
   imagesList() {
     return this.state.images.map(img => (
       <GalleryImage
         album_id={this.state.album_id}
         image={img}
         key={img.name}
-        onImageSelected={this.handleImageSelection}
+        onImageSelected={image => this.props.onImageSelected(image)}
       />
     ));
   }
