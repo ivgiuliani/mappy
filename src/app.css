@@ -13,6 +13,7 @@
   display: none;
 }
 
+.image-shade,
 #gallery-scroll .image-shade {
   background: #303030;
 }

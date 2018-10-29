@@ -16,7 +16,6 @@ class Application extends React.Component {
 
   handleImageSelection = image => {
     this.setState({ image });
-    console.log(this.state);
   };
 
   render() {
