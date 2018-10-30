@@ -51,7 +51,10 @@ class Application extends React.Component {
             album_id={this.state.album_id}
             image={this.state.current_image}
           />
-          <MapPane image={this.state.current_image} />
+          <MapPane
+            all_images={this.state.images}
+            current_image={this.state.current_image}
+          />
         </div>
       </div>
     );
