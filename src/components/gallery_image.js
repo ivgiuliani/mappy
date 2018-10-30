@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import React from "react";
+import LazyLoad from "react-lazyload";
 
 export default class GalleryImage extends React.Component {
   render() {
@@ -11,12 +12,14 @@ export default class GalleryImage extends React.Component {
           onClick={() => this.props.onImageSelected(this.props.image)}
         >
           <div className="border-dark rounded p-1 image-shade d-inline-block">
-            <img
-              className="gallery-image border border-dark rounded text-center"
-              style={{ display: "inline" }}
-              width="170px"
-              src={this.thumbnailUrl()}
-            />
+            <LazyLoad height={200} offset={600} overflow>
+              <img
+                className="gallery-image border border-dark rounded text-center"
+                style={{ display: "inline" }}
+                width="170px"
+                src={this.thumbnailUrl()}
+              />
+            </LazyLoad>
           </div>
         </a>
       </div>
