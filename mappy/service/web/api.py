@@ -22,7 +22,7 @@ def get_album(aid):
     return jsonify({
         "aid": album.aid,
         "name": album.name,
-        "images": album.images()[:5],
+        "images": album.images(),
         "videos": album.videos(),
     })
 
