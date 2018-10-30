@@ -1,9 +1,6 @@
 import React from "react";
 import Map from "pigeon-maps";
 
-import markerNormal from "../images/marker.png";
-import markerSelected from "../images/marker_selected.png";
-
 class ImageMarker extends React.Component {
   baseStyle = {
     position: "absolute",
@@ -18,9 +15,11 @@ class ImageMarker extends React.Component {
 
     let color = "#3b72b1";
     let size = 5;
+    let zIndex = 0;
     if (this.props.selected) {
       color = "#C00000";
       size = 15;
+      zIndex = 1;
     }
 
     const style = {
@@ -29,10 +28,11 @@ class ImageMarker extends React.Component {
       cursor: "pointer",
       background: color,
       width: size,
-      height: size
+      height: size,
+      zIndex: zIndex
     };
 
-    return <div style={style}>{/* <img src={markerNormal} /> */}</div>;
+    return <div style={style} />;
   }
 }
 
@@ -69,13 +69,15 @@ export default class MapPane extends React.Component {
 
   renderMarkers() {
     return this.props.all_images.map(image => {
-      return (
-        <ImageMarker
-          key={image.name}
-          anchor={this.position(image)}
-          selected={this.props.current_image == image}
-        />
-      );
+      if (image.has_geolocation) {
+        return (
+          <ImageMarker
+            key={image.name}
+            anchor={this.position(image)}
+            selected={this.props.current_image == image}
+          />
+        );
+      }
     });
   }
 }

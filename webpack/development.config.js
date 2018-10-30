@@ -14,6 +14,7 @@ module.exports = merge(baseConfig, {
   mode: "development",
   plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
+    contentBase: path.join(__dirname, "../public"),
     hot: true,
     inline: true,
     disableHostCheck: true,
