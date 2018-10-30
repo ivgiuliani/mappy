@@ -3,19 +3,36 @@ import "./app.css";
 import React from "react";
 
 import { hot } from "react-hot-loader";
-
+import axios from "axios";
 import GalleryScroll from "./components/gallery_scroll";
 import MapPane from "./components/map_pane";
 import ImagePane from "./components/image_pane";
 
 class Application extends React.Component {
   state = {
-    image: null,
-    album_id: "newyork2018"
+    images: [],
+    album_name: "",
+    album_id: "newyork2018",
+    current_image: null
   };
 
+  componentDidMount() {
+    const aid = this.state.album_id;
+
+    axios.get(`${MAPPY_API_HOST}/api/album/${aid}`).then(response => {
+      const data = response.data;
+
+      this.setState({
+        album_id: data.aid,
+        album_name: data.name,
+        images: data.images,
+        current_image: null
+      });
+    });
+  }
+
   handleImageSelection = image => {
-    this.setState({ image });
+    this.setState({ current_image: image });
   };
 
   render() {
@@ -27,10 +44,14 @@ class Application extends React.Component {
         <div className="row h-100 d-flex no-gutters">
           <GalleryScroll
             album_id={this.state.album_id}
+            images={this.state.images}
             onImageSelected={image => this.handleImageSelection(image)}
           />
-          <ImagePane album_id={this.state.album_id} image={this.state.image} />
-          <MapPane image={this.state.image} />
+          <ImagePane
+            album_id={this.state.album_id}
+            image={this.state.current_image}
+          />
+          <MapPane image={this.state.current_image} />
         </div>
       </div>
     );
