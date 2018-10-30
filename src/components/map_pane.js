@@ -25,7 +25,7 @@ class ImageMarker extends React.Component {
 
     const style = {
       ...this.baseStyle,
-      transform: `translate(${left - size}px, ${top - size}px)`,
+      transform: `translate(${left - size / 2}px, ${top - size / 2}px)`,
       cursor: "pointer",
       background: color,
       width: size,
