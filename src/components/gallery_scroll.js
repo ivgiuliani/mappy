@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
 import ThumbnailSelector from "./thumbnail_selector";
 
-export default class GalleryScroll extends Component {
+export default class GalleryScroll extends React.Component {
   render() {
     return (
       <div id="gallery-scroll" className="col-2 h-100">
