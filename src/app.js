@@ -35,6 +35,10 @@ class Application extends React.Component {
     this.setState({ current_image: image });
   };
 
+  handleMapMarkerSelection = image => {
+    this.setState({ current_image: image });
+  };
+
   render() {
     return (
       <div
@@ -54,6 +58,7 @@ class Application extends React.Component {
           <MapPane
             all_images={this.state.images}
             current_image={this.state.current_image}
+            onMarkerSelected={image => this.handleMapMarkerSelection(image)}
           />
         </div>
       </div>

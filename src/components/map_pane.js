@@ -35,7 +35,9 @@ class ImageMarker extends React.Component {
       zIndex: zIndex
     };
 
-    return <div style={style} />;
+    return (
+      <div style={style} onClick={() => this.props.onClick(this.props.image)} />
+    );
   }
 }
 
@@ -76,7 +78,9 @@ export default class MapPane extends React.Component {
         return (
           <ImageMarker
             key={image.name}
+            image={image}
             anchor={this.position(image)}
+            onClick={() => this.props.onMarkerSelected(image)}
             selected={this.props.current_image == image}
           />
         );
