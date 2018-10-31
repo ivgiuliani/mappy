@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import LazyLoad from "react-lazyload";
 
-export default class GalleryImage extends React.Component {
+export default class ThumbnailSelector extends React.Component {
   render() {
     return (
       <div className="m-3 text-center">
@@ -24,11 +24,6 @@ export default class GalleryImage extends React.Component {
         </a>
       </div>
     );
-  }
-
-  mapsUrl() {
-    const { lat, lng } = this.props.image;
-    return "http://www.google.com/maps/?q=" + lat + "," + lng;
   }
 
   thumbnailUrl() {

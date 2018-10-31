@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import GalleryImage from "./gallery_image";
+import ThumbnailSelector from "./thumbnail_selector";
 
 export default class GalleryScroll extends Component {
   render() {
@@ -13,7 +13,7 @@ export default class GalleryScroll extends Component {
 
   imagesList() {
     return this.props.images.map(img => (
-      <GalleryImage
+      <ThumbnailSelector
         album_id={this.props.album_id}
         image={img}
         key={img.name}
