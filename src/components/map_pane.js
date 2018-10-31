@@ -7,18 +7,21 @@ class ImageMarker extends React.Component {
     borderBottomLeftRadius: "100%",
     borderBottomRightRadius: "100%",
     borderTopLeftRadius: "100%",
-    borderTopRightRadius: "100%"
+    borderTopRightRadius: "100%",
+    borderColor: "#FFFFFF",
+    borderWidth: "1px",
+    borderStyle: "solid"
   };
 
   render() {
     const { left, top } = this.props;
 
     let color = "#3b72b1";
-    let size = 5;
+    let size = 8;
     let zIndex = 0;
     if (this.props.selected) {
       color = "#C00000";
-      size = 15;
+      size = 14;
       zIndex = 1;
     }
 
