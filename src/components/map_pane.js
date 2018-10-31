@@ -56,7 +56,7 @@ export default class MapPane extends React.Component {
       <div id="map-pane" className="h-100 col-4">
         <Map
           center={centerPosition}
-          zoom={15}
+          defaultZoom={15}
           style={{ width: "100%", height: "100%" }}
           animate={true}
           limitBounds="edge"
