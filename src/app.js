@@ -44,30 +44,28 @@ class Application extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div
+        className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
+        id="application"
+      >
         <NavBar onAlbumSelected={album => this.handleAlbumSelection(album)} />
-        <div
-          className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
-          id="application"
-        >
-          <div className="row h-100 d-flex no-gutters">
-            <GalleryScroll
-              album_id={this.state.album.id}
-              images={this.state.images}
-              onImageSelected={image => this.handleImageSelection(image)}
-            />
-            <ImagePane
-              album_id={this.state.album.id}
-              image={this.state.current_image}
-            />
-            <MapPane
-              all_images={this.state.images}
-              current_image={this.state.current_image}
-              onMarkerSelected={image => this.handleMapMarkerSelection(image)}
-            />
-          </div>
+        <div className="row h-100 d-flex no-gutters">
+          <GalleryScroll
+            album_id={this.state.album.id}
+            images={this.state.images}
+            onImageSelected={image => this.handleImageSelection(image)}
+          />
+          <ImagePane
+            album_id={this.state.album.id}
+            image={this.state.current_image}
+          />
+          <MapPane
+            all_images={this.state.images}
+            current_image={this.state.current_image}
+            onMarkerSelected={image => this.handleMapMarkerSelection(image)}
+          />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
