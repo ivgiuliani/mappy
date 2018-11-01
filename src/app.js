@@ -8,6 +8,7 @@ import axios from "axios";
 import GalleryScroll from "./components/gallery_scroll";
 import MapPane from "./components/map_pane";
 import ImagePane from "./components/image_pane";
+import NavBar from "./components/navbar";
 
 class Application extends React.Component {
   state = {
@@ -42,27 +43,30 @@ class Application extends React.Component {
 
   render() {
     return (
-      <div
-        className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
-        id="application"
-      >
-        <div className="row h-100 d-flex no-gutters">
-          <GalleryScroll
-            album_id={this.state.album_id}
-            images={this.state.images}
-            onImageSelected={image => this.handleImageSelection(image)}
-          />
-          <ImagePane
-            album_id={this.state.album_id}
-            image={this.state.current_image}
-          />
-          <MapPane
-            all_images={this.state.images}
-            current_image={this.state.current_image}
-            onMarkerSelected={image => this.handleMapMarkerSelection(image)}
-          />
+      <React.Fragment>
+        <NavBar />
+        <div
+          className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
+          id="application"
+        >
+          <div className="row h-100 d-flex no-gutters">
+            <GalleryScroll
+              album_id={this.state.album_id}
+              images={this.state.images}
+              onImageSelected={image => this.handleImageSelection(image)}
+            />
+            <ImagePane
+              album_id={this.state.album_id}
+              image={this.state.current_image}
+            />
+            <MapPane
+              all_images={this.state.images}
+              current_image={this.state.current_image}
+              onMarkerSelected={image => this.handleMapMarkerSelection(image)}
+            />
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

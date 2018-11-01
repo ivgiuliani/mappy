@@ -38,3 +38,8 @@
   min-height: 600px;
   height: 600px !important;
 }
+
+.custom-select {
+  background: #353535 !important;
+  color: #dedede !important;
+}
