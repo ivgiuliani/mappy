@@ -9,6 +9,7 @@ export default class ThumbnailSelector extends React.Component {
       <div className="m-3 text-center">
         <a
           href="#"
+          id={`img-${this.props.album_id}-${this.props.image.name}`}
           onClick={() => this.props.onImageSelected(this.props.image)}
         >
           <div className="border-light rounded p-1 image-shade d-inline-block">
