@@ -13,25 +13,12 @@ import NavBar from "./components/navbar";
 class Application extends React.Component {
   state = {
     images: [],
-    album_name: "",
-    album_id: "newyork2018",
+    album: {
+      id: "",
+      name: ""
+    },
     current_image: null
   };
-
-  componentDidMount() {
-    const aid = this.state.album_id;
-
-    axios.get(`${MAPPY_API_HOST}/api/album/${aid}`).then(response => {
-      const data = response.data;
-
-      this.setState({
-        album_id: data.aid,
-        album_name: data.name,
-        images: data.images,
-        current_image: null
-      });
-    });
-  }
 
   handleImageSelection = image => {
     this.setState({ current_image: image });
@@ -41,22 +28,36 @@ class Application extends React.Component {
     this.setState({ current_image: image });
   };
 
+  handleAlbumSelection = album => {
+    this.setState({ album: album });
+
+    const aid = album.id;
+    axios.get(`${MAPPY_API_HOST}/api/album/${aid}`).then(response => {
+      const data = response.data;
+
+      this.setState({
+        images: data.images,
+        current_image: null
+      });
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
-        <NavBar />
+        <NavBar onAlbumSelected={album => this.handleAlbumSelection(album)} />
         <div
           className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
           id="application"
         >
           <div className="row h-100 d-flex no-gutters">
             <GalleryScroll
-              album_id={this.state.album_id}
+              album_id={this.state.album.id}
               images={this.state.images}
               onImageSelected={image => this.handleImageSelection(image)}
             />
             <ImagePane
-              album_id={this.state.album_id}
+              album_id={this.state.album.id}
               image={this.state.current_image}
             />
             <MapPane

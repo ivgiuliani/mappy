@@ -1,5 +1,5 @@
 import React from "react";
-
+import _ from "lodash";
 import axios from "axios";
 
 export default class NavBar extends React.Component {
@@ -14,14 +14,26 @@ export default class NavBar extends React.Component {
       this.setState({
         albums: data
       });
+
+      if (data.length > 0) {
+        this.props.onAlbumSelected(data[0]);
+      }
     });
   }
+
+  handleOnChange = event => {
+    const album_id = event.target.value;
+    const album = _.find(this.state.albums, { id: album_id });
+    this.props.onAlbumSelected(album);
+  };
 
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <form className="form form-inline">
-          <select className="custom-select">{this.renderAlbums()}</select>
+          <select className="custom-select" onChange={this.handleOnChange}>
+            {this.renderAlbums()}
+          </select>
         </form>
       </nav>
     );
