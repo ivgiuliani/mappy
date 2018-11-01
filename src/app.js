@@ -1,4 +1,5 @@
 import "./resources/app.css";
+import "./resources/bootstrap-darkly.min.css";
 
 import React from "react";
 

@@ -3,7 +3,7 @@ import React from "react";
 class FullImage extends React.Component {
   render() {
     return (
-      <div className="border border-dark p-2 m-1 rounded image-shade img-container d-inline-block">
+      <div className="border border-light p-2 m-1 rounded image-shade img-container d-inline-block">
         <img
           src={this.props.imageUrl}
           style={{ maxWidth: "100%", maxHeight: "100%" }}

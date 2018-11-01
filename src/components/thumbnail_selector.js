@@ -11,10 +11,10 @@ export default class ThumbnailSelector extends React.Component {
           href="#"
           onClick={() => this.props.onImageSelected(this.props.image)}
         >
-          <div className="border-dark rounded p-1 image-shade d-inline-block">
+          <div className="border-light rounded p-1 image-shade d-inline-block">
             <LazyLoad height={200} offset={600} overflow>
               <img
-                className="gallery-image border border-dark rounded text-center"
+                className="gallery-image border border-light rounded text-center"
                 style={{ display: "inline" }}
                 width="170px"
                 src={this.thumbnailUrl()}
