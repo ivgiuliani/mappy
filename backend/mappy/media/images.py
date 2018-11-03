@@ -1,7 +1,8 @@
 import piexif
 import io
 
-from PIL import Image, ExifTags
+from PIL import Image
+from datetime import datetime
 
 
 def raw_exif(path, with_thumbnail=False):
@@ -16,6 +17,17 @@ def raw_exif(path, with_thumbnail=False):
         raw.pop("Interop")
 
     return raw
+
+
+def sanitise_datetime(orig_dt):
+    # EXIF format is weird and likes colons everywhere as it's usually something
+    # like "2018:10:18 10:01:53" or "2018:10:18
+    if len(orig_dt) <= 10:
+        return datetime.\
+            strptime(orig_dt, "%Y:%m:%d").strftime("%Y-%m-%d")
+    else:
+        return datetime.\
+            strptime(orig_dt, "%Y:%m:%d %H:%M:%S").strftime("%Y-%m-%d %H:%M:%S")
 
 
 def processed_exif(path, with_thumbnail=False):
@@ -33,14 +45,20 @@ def processed_exif(path, with_thumbnail=False):
 
     for tag_id, value in r.get("0th", {}).items():
         tag_name = piexif.TAGS["Image"][tag_id]["name"]
+        if "Date" in tag_name:
+            value = sanitise_datetime(value)
         data_d["Image"][tag_name] = value
 
     for tag_id, value in r.get("1st", {}).items():
         tag_name = piexif.TAGS["Image"][tag_id]["name"]
+        if "Date" in tag_name:
+            value = sanitise_datetime(value)
         data_d["Image"][tag_name] = value
 
     for tag_id, value in r.get("Exif", {}).items():
         tag_name = piexif.TAGS["Exif"][tag_id]["name"]
+        if "Date" in tag_name:
+            value = sanitise_datetime(value)
         data_d["Exif"][tag_name] = value
 
     for tag_id, value in r.get("GPS", {}).items():
