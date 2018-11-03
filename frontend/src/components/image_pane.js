@@ -32,6 +32,11 @@ class ImageDetails extends React.Component {
         <small>{this.props.image.date_time}</small>
         <small>
           lat: {this.props.image.lat} lon: {this.props.image.lng}
+          {this.props.image.estimated_location && (
+            <React.Fragment>
+              <br /> <i>Location is estimated</i>
+            </React.Fragment>
+          )}
         </small>
       </div>
     );
