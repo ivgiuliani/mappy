@@ -7,18 +7,24 @@ Requirments:
 - yarn
 
 ```
+cd backend
 pip install -r requirements.txt
+cd ..
+
+cd frontend
 nvm install $(cat .nvmrc)
 yarn install
 ```
 
 Start the backend:
 ```
+cd backend
 ./start-dev.sh
 ```
 
 Start the frontend:
 ```
+cd frontend
 yarn start
 ```
 

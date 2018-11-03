@@ -7,7 +7,7 @@ ROOT = os.path.join(CURR_PATH, "..")
 
 
 class Images(object):
-    ALBUMS_ROOT = os.getenv("ALBUMS_ROOT", os.path.join(ROOT, "albums"))
+    ALBUMS_ROOT = os.getenv("ALBUMS_ROOT", os.path.join(ROOT, "..", "albums"))
 
 
 class Web(object):
