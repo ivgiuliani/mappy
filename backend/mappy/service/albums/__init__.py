@@ -3,6 +3,7 @@ import json
 
 from mappy import config
 from mappy import media
+from . import process
 
 
 class Album(object):
@@ -41,7 +42,7 @@ class Album(object):
 
         all_images = [self.image(iid) for iid in all_images]
         all_images.sort(key=lambda img: img["date_time"])
-        return all_images
+        return process.process_images(all_images)
 
     def videos(self):
         return [
