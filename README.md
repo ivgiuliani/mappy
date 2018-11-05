@@ -6,7 +6,7 @@ Render geolocalised images on a map.
 
 ## Setup
 
-Requirments:
+Requirements:
 
 - python
 - nvm
