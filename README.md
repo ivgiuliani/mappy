@@ -1,3 +1,9 @@
+# Mappy
+
+Render geolocalised images on a map.
+
+![Screenshot](_docs/screenshot.jpg?raw=true)
+
 ## Setup
 
 Requirments:
