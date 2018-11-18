@@ -3,6 +3,8 @@ from mappy import media
 from mappy import config
 import json
 
+from . import process
+
 
 class Album(object):
     @staticmethod
