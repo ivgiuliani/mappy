@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
 
-from mappy import config
 from . import api, frontend
 
 
@@ -13,9 +12,7 @@ def blueprints():
 
 
 def create_app(app_name=__name__):
-    app = Flask(app_name,
-                template_folder=config.Web.TEMPLATE_ROOT,
-                static_folder=config.Web.STATIC_FILES_PATH)
+    app = Flask(app_name)
     CORS(app)
 
     for blueprint in blueprints():

@@ -10,11 +10,6 @@ class Images(object):
     ALBUMS_ROOT = os.getenv("ALBUMS_ROOT", os.path.join(ROOT, "..", "albums"))
 
 
-class Web(object):
-    TEMPLATE_ROOT = os.getenv("TEMPLATE_ROOT", os.path.join(ROOT, "templates/"))
-    STATIC_FILES_PATH = os.path.join(ROOT, "static")
-
-
 class Log(object):
     LOGGER = "MAPPY"
     LOG_LEVEL = logging.INFO
