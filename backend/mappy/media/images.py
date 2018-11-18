@@ -84,6 +84,7 @@ def geolocation(path):
     gps_lon = gps[piexif.GPSIFD.GPSLongitude]
     gps_lat_ref = gps[piexif.GPSIFD.GPSLatitudeRef]
     gps_lon_ref = gps[piexif.GPSIFD.GPSLongitudeRef]
+    gps_dop = gps.get(piexif.GPSIFD.GPSDOP, None)
 
     is_north = gps_lat_ref in ["N", "n"]
     is_south = gps_lat_ref in ["S", "s"]
@@ -126,9 +127,14 @@ def geolocation(path):
     latitude = 1.0 * latitude if is_north else -1.0 * latitude
     longitude = 1.0 * longitude if is_east else -1.0 * longitude
 
+    precision = 0
+    if gps_dop:
+        precision = gps_dop[0] / gps_dop[1]
+
     return {
         "latitude": latitude,
         "longitude": longitude,
+        "precision": precision,
     }
 
 

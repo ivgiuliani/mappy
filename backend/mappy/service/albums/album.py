@@ -69,6 +69,7 @@ class Album(object):
         if has_geolocation:
             data["lat"] = geo["latitude"]
             data["lng"] = geo["longitude"]
+            data["gps_precision"] = geo["precision"]
 
         return data
 
