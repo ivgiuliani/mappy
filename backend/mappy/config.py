@@ -11,5 +11,11 @@ class Images(object):
 
 
 class Log(object):
+    _LOG_LEVELS = {
+        "debug": logging.DEBUG,
+        "warn": logging.WARN,
+        "info": logging.INFO,
+    }
+
     LOGGER = "MAPPY"
-    LOG_LEVEL = logging.INFO
+    LOG_LEVEL = _LOG_LEVELS.get(os.getenv("MAPPY_LOG_LEVEL", "info"))
