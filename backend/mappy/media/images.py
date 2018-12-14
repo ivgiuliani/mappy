@@ -11,9 +11,9 @@ def raw_exif(path, with_thumbnail=False):
         raw.pop("thumbnail")
 
     # Pointless tags, we're better off without this
-    if raw.get("Exif", {}).has_key(piexif.ExifIFD.MakerNote):
+    if piexif.ExifIFD.MakerNote in raw.get("Exif", {}):
         raw.get("Exif").pop(piexif.ExifIFD.MakerNote)
-    if raw.has_key("Interop"):
+    if "Interop" in raw:
         raw.pop("Interop")
 
     return raw
