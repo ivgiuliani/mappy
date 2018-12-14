@@ -46,19 +46,19 @@ def processed_exif(path, with_thumbnail=False):
     for tag_id, value in r.get("0th", {}).items():
         tag_name = piexif.TAGS["Image"][tag_id]["name"]
         if "Date" in tag_name:
-            value = sanitise_datetime(value)
+            value = sanitise_datetime(value.decode("ascii"))
         data_d["Image"][tag_name] = value
 
     for tag_id, value in r.get("1st", {}).items():
         tag_name = piexif.TAGS["Image"][tag_id]["name"]
         if "Date" in tag_name:
-            value = sanitise_datetime(value)
+            value = sanitise_datetime(value.decode("ascii"))
         data_d["Image"][tag_name] = value
 
     for tag_id, value in r.get("Exif", {}).items():
         tag_name = piexif.TAGS["Exif"][tag_id]["name"]
         if "Date" in tag_name:
-            value = sanitise_datetime(value)
+            value = sanitise_datetime(value.decode("ascii"))
         data_d["Exif"][tag_name] = value
 
     for tag_id, value in r.get("GPS", {}).items():
