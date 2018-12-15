@@ -82,8 +82,8 @@ def geolocation(path):
     gps = exif["GPS"]
     gps_lat = gps[piexif.GPSIFD.GPSLatitude]
     gps_lon = gps[piexif.GPSIFD.GPSLongitude]
-    gps_lat_ref = gps[piexif.GPSIFD.GPSLatitudeRef]
-    gps_lon_ref = gps[piexif.GPSIFD.GPSLongitudeRef]
+    gps_lat_ref = gps[piexif.GPSIFD.GPSLatitudeRef].decode("ascii")
+    gps_lon_ref = gps[piexif.GPSIFD.GPSLongitudeRef].decode("ascii")
     gps_dop = gps.get(piexif.GPSIFD.GPSDOP, None)
 
     is_north = gps_lat_ref in ["N", "n"]
