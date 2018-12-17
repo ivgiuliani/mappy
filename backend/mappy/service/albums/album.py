@@ -21,6 +21,7 @@ class Album(object):
     def __init__(self, aid):
         self.aid = aid
         self.path = os.path.join(config.Images.ALBUMS_ROOT, aid)
+        self.index_path = os.path.join(self.path, "index.json")
 
     def _raw_metadata(self):
         m_path = os.path.join(config.Images.ALBUMS_ROOT, self.aid, "metadata.json")
@@ -30,6 +31,28 @@ class Album(object):
 
         with open(m_path) as f:
             return json.load(f)
+
+    def index(self, reindex=False):
+        index_exists = os.path.exists(self.index_path)
+
+        if index_exists and not reindex:
+            with open(self.index_path, "r") as f_index:
+                return json.loads(f_index.read())
+
+        all_images = [
+            img for img in os.listdir(self.path)
+            if media.valid.image(os.path.join(self.path, img))
+        ]
+
+        all_images = [self.image(iid) for iid in all_images]
+        all_images.sort(key=lambda img: img["date_time"])
+
+        with open(self.index_path,  "w") as f_index:
+            processed = process.process_images(all_images)
+            f_index.write(json.dumps(processed))
+            f_index.flush()
+
+        return processed
 
     def get_name(self):
         return self._raw_metadata().get("name", self.aid)

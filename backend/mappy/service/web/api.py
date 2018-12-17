@@ -22,7 +22,7 @@ def get_album(aid):
     return jsonify({
         "aid": album.aid,
         "name": album.name,
-        "images": album.images(),
+        "images": album.index(),
     })
 
 
@@ -36,3 +36,14 @@ def get_image(aid, iid):
     if not image:
         abort(404)
     return jsonify(image)
+
+
+@blueprint.route("/album/<aid>/index")
+def album_index(aid):
+    if not albums.Album.exists(aid):
+        abort(404)
+
+    album = albums.Album.load(aid)
+    album.index(reindex=True)
+
+    return "", 200
