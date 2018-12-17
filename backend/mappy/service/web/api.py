@@ -23,7 +23,6 @@ def get_album(aid):
         "aid": album.aid,
         "name": album.name,
         "images": album.images(),
-        "videos": album.videos(),
     })
 
 

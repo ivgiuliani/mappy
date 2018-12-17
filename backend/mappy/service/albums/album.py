@@ -44,12 +44,6 @@ class Album(object):
         all_images.sort(key=lambda img: img["date_time"])
         return process.process_images(all_images)
 
-    def videos(self):
-        return [
-            img for img in os.listdir(self.path)
-            if media.valid.video(os.path.join(self.path, img))
-        ]
-
     def image(self, iid):
         path = os.path.join(self.path, iid)
         if not os.path.exists(path) or not os.path.isfile(path):
