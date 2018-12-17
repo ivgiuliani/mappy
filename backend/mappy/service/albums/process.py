@@ -2,8 +2,8 @@ from mappy import utils
 
 from dateutil import parser
 
-TRIANGULATE_GEOLOCATION_THRESHOLD_SECONDS = 3 * 60
-APPROXIMATE_GEOLOCATION_THRESHOLD_SECONDS = 80
+TRIANGULATE_GEOLOCATION_THRESHOLD_SECONDS = 4 * 60
+APPROXIMATE_GEOLOCATION_THRESHOLD_SECONDS = 2 * 60
 
 
 def triangulate(prev_img, next_img):
@@ -26,7 +26,7 @@ def augment_geolocation(prev_img, curr_img, next_img):
     if curr_img["has_geolocation"]:
         return curr_img
 
-    if not prev_img or not next_img:
+    if not prev_img and not next_img:
         return curr_img
 
     if not prev_img["has_geolocation"] and not next_img["has_geolocation"]:
@@ -41,8 +41,8 @@ def augment_geolocation(prev_img, curr_img, next_img):
         })
 
     curr_dt = parser.parse(curr_img["date_time"])
-    prev_dt = parser.parse(prev_img["date_time"])
-    next_dt = parser.parse(next_img["date_time"])
+    prev_dt = prev_img and parser.parse(prev_img["date_time"])
+    next_dt = next_img and parser.parse(next_img["date_time"])
     if prev_img["has_geolocation"] and next_img["has_geolocation"]:
         # Both prev and next have a geolocation, use the avg point in this case
         time_diff = (next_dt - prev_dt).seconds
