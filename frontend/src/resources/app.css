@@ -43,3 +43,37 @@
   background: #353535 !important;
   color: #dedede !important;
 }
+
+.loading-spinner {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+
+.loading-spinner:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: #954545 transparent #454545 transparent;
+  animation: loading-spinner 1.2s linear infinite;
+}
+@keyframes loading-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#image-pane .loading-spinner {
+  position: absolute;
+  margin: auto auto;
+  left: 0;
+  right: 0;
+  top: 50px;
+}
