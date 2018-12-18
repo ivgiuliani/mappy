@@ -21,7 +21,7 @@ export default class NavBar extends React.Component {
     });
   }
 
-  handleOnChange = event => {
+  handleOnAlbumChange = event => {
     const album_id = event.target.value;
     const album = _.find(this.state.albums, { id: album_id });
     this.props.onAlbumSelected(album);
@@ -31,7 +31,7 @@ export default class NavBar extends React.Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <form className="form form-inline">
-          <select className="custom-select" onChange={this.handleOnChange}>
+          <select className="custom-select" onChange={this.handleOnAlbumChange}>
             {this.renderAlbums()}
           </select>
         </form>
