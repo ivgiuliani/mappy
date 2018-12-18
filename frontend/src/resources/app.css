@@ -43,3 +43,13 @@
   background: #353535 !important;
   color: #dedede !important;
 }
+
+.missing-geolocation {
+  background: #900000;
+  width: 10px;
+  height: 10px;
+  margin-left: 4px;
+  margin-top: 4px;
+  transform: rotate(45deg);
+  position: absolute;
+}
