@@ -1,6 +1,7 @@
-import React from "react";
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
+import React from "react";
+import HorizLoader from "./horiz_loader";
 
 export default class NavBar extends React.Component {
   state = {
@@ -35,6 +36,7 @@ export default class NavBar extends React.Component {
             {this.renderAlbums()}
           </select>
         </form>
+        {this.props.isLoadingImage && <HorizLoader />}
       </nav>
     );
   }

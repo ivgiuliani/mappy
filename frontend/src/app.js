@@ -17,15 +17,20 @@ class Application extends React.Component {
       id: "",
       name: ""
     },
+    isLoadingImage: false,
     current_image: null
   };
 
   handleImageSelection = image => {
-    this.setState({ current_image: image });
+    this.setState({ current_image: image, isLoadingImage: true });
+  };
+
+  handleImageLoaded = () => {
+    this.setState({ isLoadingImage: false });
   };
 
   handleMapMarkerSelection = image => {
-    this.setState({ current_image: image });
+    this.setState({ current_image: image, isLoadingImage: true });
   };
 
   handleAlbumSelection = album => {
@@ -48,7 +53,10 @@ class Application extends React.Component {
         className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
         id="application"
       >
-        <NavBar onAlbumSelected={album => this.handleAlbumSelection(album)} />
+        <NavBar
+          onAlbumSelected={album => this.handleAlbumSelection(album)}
+          isLoadingImage={this.state.isLoadingImage}
+        />
         <div className="row h-100 d-flex no-gutters">
           <GalleryScroll
             album_id={this.state.album.id}
@@ -58,6 +66,7 @@ class Application extends React.Component {
           <ImagePane
             album_id={this.state.album.id}
             image={this.state.current_image}
+            onImageLoaded={() => this.handleImageLoaded()}
           />
           <MapPane
             all_images={this.state.images}

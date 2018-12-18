@@ -1,34 +1,12 @@
 import React from "react";
 
 class FullImage extends React.Component {
-  state = {
-    loading: true
-  };
-
-  onLoad = event => {
-    console.log("over");
-    this.setState({ loading: false });
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.imageUrl !== this.props.imageUrl) {
-      this.setState({ loading: true });
-    }
-  }
-
   render() {
-    const isLoading = this.state.loading;
-    let loader = "";
-    if (isLoading) {
-      loader = <div className="loading-spinner loading-spinner-full-image" />;
-    }
-
     return (
       <div className="border border-light p-2 m-1 rounded image-shade img-container d-inline-block">
-        {loader}
         <img
           src={this.props.imageUrl}
-          onLoad={this.onLoad}
+          onLoad={() => this.props.onImageLoaded()}
           style={{ maxWidth: "100%", maxHeight: "100%" }}
         />
       </div>
@@ -80,7 +58,12 @@ export default class ImagePane extends React.Component {
     if (this.props.image) {
       return (
         <React.Fragment>
-          <FullImage imageUrl={this.imageUrl()} />
+          <FullImage
+            imageUrl={this.imageUrl()}
+            onImageLoaded={() => {
+              this.props.onImageLoaded();
+            }}
+          />
           <ImageDetails image={this.props.image} />
         </React.Fragment>
       );
