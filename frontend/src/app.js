@@ -22,7 +22,8 @@ class Application extends React.Component {
   };
 
   handleImageSelection = image => {
-    this.setState({ current_image: image, isLoadingImage: true });
+    const isLoading = image != this.state.current_image;
+    this.setState({ current_image: image, isLoadingImage: isLoading });
   };
 
   handleImageLoaded = () => {
