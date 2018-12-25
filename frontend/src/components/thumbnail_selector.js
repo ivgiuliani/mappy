@@ -13,13 +13,13 @@ export default class ThumbnailSelector extends React.Component {
           onClick={() => this.props.onImageSelected(this.props.image)}
         >
           <div className="border-light rounded p-1 image-shade d-inline-block">
+            {!this.props.image.has_geolocation && (
+              <div
+                className="missing-geolocation"
+                title="Missing geolocation data"
+              />
+            )}
             <LazyLoad height={200} offset={600} overflow>
-              {!this.props.image.has_geolocation && (
-                <div
-                  className="missing-geolocation"
-                  title="Missing geolocation data"
-                />
-              )}
               <img
                 className={
                   "gallery-image border border-light rounded text-center "
