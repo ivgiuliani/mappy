@@ -33,6 +33,46 @@ class Application extends React.Component {
     this.setState({ current_image: image, isLoadingImage: true });
   };
 
+  findCurrentImageIdx() {
+    return this.state.images.findIndex(
+      el => el.name == this.state.current_image.name
+    );
+  }
+
+  handleKeyDown = event => {
+    let curr_idx;
+    let next_idx;
+
+    if (event.keyCode != 37 && event.keyCode != 39) {
+      return;
+    }
+
+    if (this.state.current_image == null) {
+      this.setState({ current_image: this.state.images[0] });
+      return;
+    }
+
+    curr_idx = this.findCurrentImageIdx();
+    if (curr_idx == -1) {
+      return;
+    }
+
+    switch (event.keyCode) {
+      case 39: // arrow right
+        next_idx = Math.min(curr_idx + 1, this.state.images.length - 1);
+        break;
+      case 37: // arrow left
+        next_idx = Math.max(curr_idx - 1, 0);
+        break;
+      default:
+        break;
+    }
+
+    this.setState({
+      current_image: this.state.images[next_idx]
+    });
+  };
+
   handleAlbumSelection = album => {
     this.setState({ album: album });
 
@@ -47,11 +87,16 @@ class Application extends React.Component {
     });
   };
 
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyDown, false);
+  }
+
   render() {
     return (
       <div
         className="container-fluid p-0 fill-height d-flex flex-column no-gutters"
         id="application"
+        onKeyDown={this.handleKeyPress}
       >
         <NavBar
           onAlbumSelected={album => this.handleAlbumSelection(album)}
