@@ -7,7 +7,7 @@ const path = require("path");
 console.log(
   `Mappy API host: ${process.env.MAPPY_API_HOST} ~ Git rev: ${
     process.env.GIT_REVISION
-  } ~ Node: ${process.env.NODE_ENV}`
+  } ~ Node: ${process.env.NODE_ENV} ~ API Key: ${process.env.MAPPY_API_KEY}`
 );
 
 module.exports = merge(baseConfig, {

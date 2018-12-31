@@ -1,5 +1,7 @@
 import React from "react";
 
+import ApiClient from "../api";
+
 class FullImage extends React.Component {
   render() {
     return (
@@ -59,7 +61,10 @@ export default class ImagePane extends React.Component {
       return (
         <React.Fragment>
           <FullImage
-            imageUrl={this.imageUrl()}
+            imageUrl={new ApiClient().imageUrl(
+              this.props.album_id,
+              this.props.image.name
+            )}
             onImageLoaded={() => {
               this.props.onImageLoaded();
             }}
@@ -70,11 +75,5 @@ export default class ImagePane extends React.Component {
     }
 
     return <React.Fragment />;
-  }
-
-  imageUrl() {
-    return `${MAPPY_API_HOST}/serve/full/album/${this.props.album_id}/image/${
-      this.props.image.name
-    }`;
   }
 }

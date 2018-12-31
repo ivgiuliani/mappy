@@ -1,7 +1,8 @@
-import axios from "axios";
 import _ from "lodash";
 import React from "react";
 import HorizLoader from "./horiz_loader";
+
+import ApiClient from "../api";
 
 export default class NavBar extends React.Component {
   state = {
@@ -9,7 +10,7 @@ export default class NavBar extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`${MAPPY_API_HOST}/api/albums`).then(response => {
+    new ApiClient().getAlbums().then(response => {
       const data = response.data;
 
       this.setState({

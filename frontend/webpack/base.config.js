@@ -27,6 +27,7 @@ module.exports = {
     new webpack.DefinePlugin({
       GIT_REVISION: JSON.stringify(GIT_REVISION.toString().trim()),
       MAPPY_API_HOST: JSON.stringify(process.env.MAPPY_API_HOST || ""),
+      MAPPY_API_KEY: JSON.stringify(process.env.MAPPY_API_KEY || ""),
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     })
   ],

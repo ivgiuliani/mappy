@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import LazyLoad from "react-lazyload";
 
+import ApiClient from "../api";
+
 export default class ThumbnailSelector extends React.Component {
   render() {
     return (
@@ -26,18 +28,15 @@ export default class ThumbnailSelector extends React.Component {
                 }
                 style={{ display: "inline" }}
                 width="170px"
-                src={this.thumbnailUrl()}
+                src={new ApiClient().thumbnailUrl(
+                  this.props.album_id,
+                  this.props.image.name
+                )}
               />
             </LazyLoad>
           </div>
         </a>
       </div>
     );
-  }
-
-  thumbnailUrl() {
-    return `${MAPPY_API_HOST}/serve/thumb/album/${this.props.album_id}/image/${
-      this.props.image.name
-    }`;
   }
 }

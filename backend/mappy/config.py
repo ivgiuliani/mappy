@@ -5,6 +5,8 @@ import logging
 CURR_PATH = os.path.dirname(os.path.realpath(__file__))
 ROOT = os.path.join(CURR_PATH, "..")
 
+API_KEY = os.getenv("MAPPY_API_KEY", "ChangeMe")
+
 
 class Images(object):
     ALBUMS_ROOT = os.getenv("ALBUMS_ROOT", os.path.join(ROOT, "..", "albums"))

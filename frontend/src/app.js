@@ -9,6 +9,7 @@ import GalleryScroll from "./components/gallery_scroll";
 import MapPane from "./components/map_pane";
 import ImagePane from "./components/image_pane";
 import NavBar from "./components/navbar";
+import ApiClient from "./api";
 
 class Application extends React.Component {
   state = {
@@ -78,7 +79,7 @@ class Application extends React.Component {
     this.setState({ album: album });
 
     const aid = album.id;
-    axios.get(`${MAPPY_API_HOST}/api/album/${aid}`).then(response => {
+    new ApiClient().getAlbum(aid).then(response => {
       const data = response.data;
 
       this.setState({
