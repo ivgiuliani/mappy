@@ -70,8 +70,10 @@ class Application extends React.Component {
         break;
     }
 
+    const isLoading = this.state.images[next_idx] != this.state.current_image;
     this.setState({
-      current_image: this.state.images[next_idx]
+      current_image: this.state.images[next_idx],
+      isLoadingImage: isLoading
     });
   };
 
