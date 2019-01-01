@@ -13,6 +13,4 @@ def get_key(raw_header):
 
 def is_valid_auth(authorization_header):
     key = get_key(authorization_header or "")
-    print("HEADER: %s" % authorization_header)
-    print("KEY: %s" % key)
     return is_valid(key)
