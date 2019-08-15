@@ -68,12 +68,6 @@ pub fn extract_gps_exif(path: &str) {
             Tag::GPSVersionID => {
                 println!("version={}", f.value.display_as(f.tag));
             }
-            Tag::GPSLatitudeRef => {
-                println!("lat_ref={}", exif_lat_lon_ref(&f.value));
-            }
-            Tag::GPSLongitudeRef => {
-                println!("lon_ref={}", exif_lat_lon_ref(&f.value));
-            }
             Tag::GPSLongitude => {
                 let lon_ref_field: &exif::Field = reader
                     .get_field(Tag::GPSLongitudeRef, false)
