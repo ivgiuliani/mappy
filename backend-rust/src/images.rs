@@ -1,4 +1,22 @@
 use exif::{Tag, Value};
+use std::fmt::Debug;
+
+#[derive(Debug)]
+pub struct Location {
+    lat: f64,
+    lat_ref: char,
+    lon: f64,
+    lon_ref: char,
+}
+
+impl Location {
+    pub fn to_string(&self) -> String {
+        return format!(
+            "lat:{}{} lon:{}{}",
+            self.lat, self.lat_ref, self.lon, self.lon_ref
+        );
+    }
+}
 
 /// Prints on stdout all the exif tags for the given image
 #[allow(dead_code)]
@@ -59,40 +77,29 @@ fn exif_lat_lon_to_decimal_degrees(value: &exif::Value, direction_reference: cha
     }
 }
 
-pub fn extract_gps_exif(path: &str) {
+fn extr_gps_exif_by_tag(tag: exif::Tag, ref_tag: exif::Tag, reader: &exif::Reader) -> (f64, char) {
+    let ref_field: &exif::Field = reader.get_field(ref_tag, false).expect("missing reference");
+    let ref_value = exif_lat_lon_ref(&ref_field.value);
+
+    let ll_field: &exif::Field = reader
+        .get_field(tag, false)
+        .expect("missing latitude/longitude");
+    let ll_value = exif_lat_lon_to_decimal_degrees(&ll_field.value, ref_value);
+
+    return (ll_value, ref_value);
+}
+
+pub fn extract_gps_exif(path: &str) -> Location {
     let file = std::fs::File::open(path).unwrap();
     let reader = exif::Reader::new(&mut std::io::BufReader::new(&file)).unwrap();
 
-    for f in reader.fields() {
-        match f.tag {
-            Tag::GPSVersionID => {
-                println!("version={}", f.value.display_as(f.tag));
-            }
-            Tag::GPSLongitude => {
-                let lon_ref_field: &exif::Field = reader
-                    .get_field(Tag::GPSLongitudeRef, false)
-                    .expect("missing longitude reference");
-                let lon_ref = exif_lat_lon_ref(&lon_ref_field.value);
+    let lat = extr_gps_exif_by_tag(Tag::GPSLatitude, Tag::GPSLatitudeRef, &reader);
+    let lon = extr_gps_exif_by_tag(Tag::GPSLongitude, Tag::GPSLongitudeRef, &reader);
 
-                println!(
-                    "lon={} {}",
-                    exif_lat_lon_to_decimal_degrees(&f.value, lon_ref),
-                    lon_ref
-                );
-            }
-            Tag::GPSLatitude => {
-                let lat_ref_field: &exif::Field = reader
-                    .get_field(Tag::GPSLatitudeRef, false)
-                    .expect("missing latitude reference");
-                let lat_ref = exif_lat_lon_ref(&lat_ref_field.value);
-
-                println!(
-                    "lat={} {}",
-                    exif_lat_lon_to_decimal_degrees(&f.value, lat_ref),
-                    lat_ref
-                );
-            }
-            _ => {}
-        }
-    }
+    return Location {
+        lat: lat.0,
+        lat_ref: lat.1,
+        lon: lon.0,
+        lon_ref: lon.1,
+    };
 }

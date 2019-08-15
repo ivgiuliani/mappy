@@ -15,5 +15,7 @@ fn main() {
     }
 
     let path = &args[1];
-    images::extract_gps_exif(path);
+    let coords = images::extract_gps_exif(path);
+
+    println!("{}", coords.to_string());
 }
