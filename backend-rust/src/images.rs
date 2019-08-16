@@ -77,16 +77,29 @@ fn exif_lat_lon_to_decimal_degrees(value: &exif::Value, direction_reference: cha
     }
 }
 
-fn extr_gps_exif_by_tag(tag: exif::Tag, ref_tag: exif::Tag, reader: &exif::Reader) -> (f64, char) {
-    let ref_field: &exif::Field = reader.get_field(ref_tag, false).expect("missing reference");
-    let ref_value = exif_lat_lon_ref(&ref_field.value);
+fn has_tags(reader: &exif::Reader, tags: Vec<exif::Tag>) -> bool {
+    tags.iter()
+        .all(|tag| reader.get_field(*tag, false).is_some())
+}
 
-    let ll_field: &exif::Field = reader
-        .get_field(tag, false)
-        .expect("missing latitude/longitude");
-    let ll_value = exif_lat_lon_to_decimal_degrees(&ll_field.value, ref_value);
+fn extr_gps_exif_by_tag(
+    tag: exif::Tag,
+    ref_tag: exif::Tag,
+    reader: &exif::Reader,
+) -> Option<(f64, char)> {
+    match reader.get_field(ref_tag, false) {
+        None => return None,
+        Some(field) => {
+            let ref_value = exif_lat_lon_ref(&field.value);
 
-    return (ll_value, ref_value);
+            let ll_field: &exif::Field = reader
+                .get_field(tag, false)
+                .expect("missing latitude/longitude");
+            let ll_value = exif_lat_lon_to_decimal_degrees(&ll_field.value, ref_value);
+
+            return Some((ll_value, ref_value));
+        }
+    };
 }
 
 fn extr_gps_dop_exif(reader: &exif::Reader) -> Option<f64> {
@@ -102,18 +115,28 @@ pub fn extract_gps_exif(path: &str) -> Option<Location> {
     let file = std::fs::File::open(path).unwrap();
     let reader = exif::Reader::new(&mut std::io::BufReader::new(&file)).unwrap();
 
-    let lat = extr_gps_exif_by_tag(Tag::GPSLatitude, Tag::GPSLatitudeRef, &reader);
-    let lon = extr_gps_exif_by_tag(Tag::GPSLongitude, Tag::GPSLongitudeRef, &reader);
-    let precision = extr_gps_dop_exif(&reader);
+    if !has_tags(
+        &reader,
+        vec![
+            Tag::GPSLatitude,
+            Tag::GPSLatitudeRef,
+            Tag::GPSLongitude,
+            Tag::GPSLongitudeRef,
+        ],
+    ) {
+        return None;
+    }
+
+    let lat = extr_gps_exif_by_tag(Tag::GPSLatitude, Tag::GPSLatitudeRef, &reader).unwrap();
+    let lon = extr_gps_exif_by_tag(Tag::GPSLongitude, Tag::GPSLongitudeRef, &reader).unwrap();
+
+    let precision = extr_gps_dop_exif(&reader).unwrap_or(0.0);
 
     return Some(Location {
         lat: lat.0,
         lat_ref: lat.1,
         lon: lon.0,
         lon_ref: lon.1,
-        precision: match precision {
-            None => 0.0,
-            Some(p) => p,
-        },
+        precision: precision,
     });
 }
