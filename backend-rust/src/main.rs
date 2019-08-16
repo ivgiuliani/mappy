@@ -18,7 +18,7 @@ fn main() {
         let path = &args[i];
         match images::extract_gps_exif(path) {
             Some(coords) => println!("{} {}", path, coords.to_string()),
-            _ => {}
+            _ => println!("{} None", path)
         }
     }
 }
