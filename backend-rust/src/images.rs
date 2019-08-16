@@ -98,7 +98,7 @@ fn extr_gps_dop_exif(reader: &exif::Reader) -> Option<f64> {
     }
 }
 
-pub fn extract_gps_exif(path: &str) -> Location {
+pub fn extract_gps_exif(path: &str) -> Option<Location> {
     let file = std::fs::File::open(path).unwrap();
     let reader = exif::Reader::new(&mut std::io::BufReader::new(&file)).unwrap();
 
@@ -106,7 +106,7 @@ pub fn extract_gps_exif(path: &str) -> Location {
     let lon = extr_gps_exif_by_tag(Tag::GPSLongitude, Tag::GPSLongitudeRef, &reader);
     let precision = extr_gps_dop_exif(&reader);
 
-    return Location {
+    return Some(Location {
         lat: lat.0,
         lat_ref: lat.1,
         lon: lon.0,
@@ -115,5 +115,5 @@ pub fn extract_gps_exif(path: &str) -> Location {
             None => 0.0,
             Some(p) => p,
         },
-    };
+    });
 }

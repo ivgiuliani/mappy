@@ -16,7 +16,7 @@ fn main() {
 
     for i in 1..args.len() {
         let path = &args[i];
-        let coords = images::extract_gps_exif(path);
+        let coords = images::extract_gps_exif(path).unwrap();
         println!("{} {}", path, coords.to_string());
     }
 }
