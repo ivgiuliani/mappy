@@ -3,7 +3,7 @@ use std::env;
 mod images;
 
 fn help(sysname: &str) {
-    println!("{} filename", sysname);
+    println!("{} filename .. filename", sysname);
     println!("  returns the exif data for the given filename");
 }
 
@@ -14,8 +14,9 @@ fn main() {
         return;
     }
 
-    let path = &args[1];
-    let coords = images::extract_gps_exif(path);
-
-    println!("{}", coords.to_string());
+    for i in 1..args.len() {
+        let path = &args[i];
+        let coords = images::extract_gps_exif(path);
+        println!("{} {}", path, coords.to_string());
+    }
 }
