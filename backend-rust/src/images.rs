@@ -103,10 +103,13 @@ fn extr_gps_exif_by_tag(
 }
 
 fn extr_gps_dop_exif(reader: &exif::Reader) -> Option<f64> {
-    let dop_field = reader.get_field(Tag::GPSDOP, false).unwrap();
+    let dop_field = reader.get_field(Tag::GPSDOP, false);
 
-    match dop_field.value {
-        Value::Rational(ref v) if v.len() == 1 => Some(v[0].to_f64()),
+    match dop_field {
+        Some(field) => match field.value {
+            Value::Rational(ref v) if v.len() == 1 => Some(v[0].to_f64()),
+            _ => None,
+        },
         _ => None,
     }
 }
