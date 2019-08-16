@@ -1,5 +1,4 @@
 use exif::{Tag, Value};
-use std::fmt::Debug;
 
 #[derive(Debug)]
 pub struct Location {
@@ -7,13 +6,14 @@ pub struct Location {
     lat_ref: char,
     lon: f64,
     lon_ref: char,
+    precision: f64,
 }
 
 impl Location {
     pub fn to_string(&self) -> String {
         return format!(
-            "lat:{}{} lon:{}{}",
-            self.lat, self.lat_ref, self.lon, self.lon_ref
+            "lat:{}{} lon:{}{} (prec:{})",
+            self.lat, self.lat_ref, self.lon, self.lon_ref, self.precision
         );
     }
 }
@@ -89,17 +89,31 @@ fn extr_gps_exif_by_tag(tag: exif::Tag, ref_tag: exif::Tag, reader: &exif::Reade
     return (ll_value, ref_value);
 }
 
+fn extr_gps_dop_exif(reader: &exif::Reader) -> Option<f64> {
+    let dop_field = reader.get_field(Tag::GPSDOP, false).unwrap();
+
+    match dop_field.value {
+        Value::Rational(ref v) if v.len() == 1 => Some(v[0].to_f64()),
+        _ => None,
+    }
+}
+
 pub fn extract_gps_exif(path: &str) -> Location {
     let file = std::fs::File::open(path).unwrap();
     let reader = exif::Reader::new(&mut std::io::BufReader::new(&file)).unwrap();
 
     let lat = extr_gps_exif_by_tag(Tag::GPSLatitude, Tag::GPSLatitudeRef, &reader);
     let lon = extr_gps_exif_by_tag(Tag::GPSLongitude, Tag::GPSLongitudeRef, &reader);
+    let precision = extr_gps_dop_exif(&reader);
 
     return Location {
         lat: lat.0,
         lat_ref: lat.1,
         lon: lon.0,
         lon_ref: lon.1,
+        precision: match precision {
+            None => 0.0,
+            Some(p) => p,
+        },
     };
 }
