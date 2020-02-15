@@ -10,7 +10,7 @@
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",
     "image-webpack-loader": "^4.4.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "pigeon-maps": "^0.11.5",
     "pigeon-marker": "^0.3.4",
     "pigeon-overlay": "^0.2.2",

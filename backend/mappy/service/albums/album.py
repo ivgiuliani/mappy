@@ -1,16 +1,18 @@
 import os
+import json
+from pathlib import Path
+
 from mappy import media
 from mappy import config
-import json
 
 from . import process
 
 
 class Album(object):
     @staticmethod
-    def exists(aid):
-        path = os.path.join(config.Images.ALBUMS_ROOT, aid)
-        return os.path.exists(path) and os.path.isdir(path)
+    def exists(aid: str) -> bool:
+        path = Path(os.path.join(config.Images.ALBUMS_ROOT, aid))
+        return path.exists() and path.is_dir()
 
     @staticmethod
     def load(aid):
